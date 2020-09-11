@@ -114,10 +114,6 @@ void Execute()
         stage = setup;
     }
     else {
-        if (!MoreEmptySpaces()) {
-            stage = setup;
-        }
-
         //Set next players turn and return to input stage
         player1Turn = !player1Turn;
         stage = inputStage;
@@ -125,18 +121,6 @@ void Execute()
     
 
 }
-bool MoreEmptySpaces() {
-    //If there is any spaces which are empty, return true
-    for (int i = 0; i < 8; i++)
-    {
-        if (slots[i].myState == Slot::SlotState::empty) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 
 bool Win() {
     //manuel checking, if any of these are true, someone won the game
