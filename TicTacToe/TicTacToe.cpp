@@ -3,6 +3,7 @@
 #include "Slot.h"
 #include "TicTacToe.h"
 #include <string>
+#include <vector>
 
 bool playing;
 int height = 3;
@@ -21,6 +22,9 @@ bool player1Turn = true;
 
 int player1Wins = 0;
 int player2Wins = 0;
+int aiWins = 0;
+
+bool ai = false;
 
 int main()
 {
@@ -41,23 +45,65 @@ int main()
             break;
         }
     }
+
+    return 0;
 };
 
 void Setup()
 {
     system("cls");
     //Set all the slots to empty
-    for (int i = 0; i < amountOfSlots - 1; i++)
+    for (int i = 0; i < amountOfSlots; i++)
     {
         slots[i].Initalize();
     }
-    DrawMap();
-    stage = inputStage;
 
+    player1Turn = true;
+    //Ask for 2 player or AI
     
+    bool askForAI;
+    do {
+        int aiOr2Player;
+        std::cout << "2-PLayer or play versus AI?:" << std::endl << "1. 2-Player" << std::endl << "2. AI" << std::endl;
+        std::cin >> aiOr2Player;
+        switch (aiOr2Player) {
+        case 1:
+            ai = false;
+            askForAI = false;
+            break;
+        case 2:
+            ai = true;
+            askForAI = false;
+            break;
+        default:
+            system("cls");
+            std::cout << "That's not an option!" << std::endl;
+            askForAI = true;
+            break;
+        }
+    } while (askForAI);
+    //Clear it to remvoe the ai question 
+    system("cls");
+    //Draws map;
+    DrawMap();
+
+    stage = inputStage;
 }
 
 void Input() {
+    //Check if youre playing versus AI, then check if the its the Ai turn, 
+    //then pass the AIMove function as the newInput which is used in execute
+    if (ai && !player1Turn)
+    {
+        //New input is set to what the ai function determines
+        newInput = AIMove();
+        //Set the wished slot to the new input
+        slots[newInput].GetInput(PlayerState());
+        //Go to exectute stage
+        stage = executeStage;
+        //Using return so it dosent trigger the do function under
+        return;
+    }
     //Put it in loop in case of wrong input etc
     do {
         //Ask for input
@@ -73,20 +119,19 @@ void Input() {
         std::cin >> newInput;
         
         //Check if newInput is valid, if it is valid, the slot GetInput function will return true, and set itself to the state
+        //Use new input minus 1 becuse the player sees number as one more than they are in the array
         if (slots[newInput - 1].GetInput(PlayerState())) 
         {
             //Got valid input so go to next phase
             stage = executeStage;
-            
         }
         else {
+
             std::cout << "Not valid input" << std::endl;
-            
         }
     } while (stage == inputStage);
-
 }
-//Variable to see what state it should give the slot depeing on who's turn it is
+    //Variable to see what state it should give the slot depeing on who's turn it is
 Slot::SlotState PlayerState() {
     if (player1Turn) {
         return Slot::SlotState::x;
@@ -114,22 +159,43 @@ void Execute()
         stage = setup;
     }
     else {
+        //Restart if there is no more empty spaces
         if (!MoreEmptySpaces()) {
+            
             stage = setup;
+
+            return;
         }
 
         //Set next players turn and return to input stage
         player1Turn = !player1Turn;
         stage = inputStage;
     }
-    
+}
 
+int AIMove() 
+{
+    //Only give vaild returns;
+    //Check for the middle slot, if its empty, then take it
+    if (slots[4].myState == Slot::SlotState::empty) {
+        return 4;
+    }
+
+    //Temperory, just take the first avalibe slot
+    for (int i = 0; i < 9; i++) {
+        if (slots[i].myState == Slot::SlotState::empty) {
+            std::cout << i;
+            return i;
+        }
+    }
+    return 1;
 }
 bool MoreEmptySpaces() {
     //If there is any spaces which are empty, return true
     for (int i = 0; i < 8; i++)
     {
         if (slots[i].myState == Slot::SlotState::empty) {
+            
             return true;
         }
     }
@@ -192,7 +258,7 @@ void DrawMap()
                 case Slot::SlotState::o:
                     toDraw = 'O';
                     break;
-                defult:
+                default:
                     toDraw = '2';
                         break;
             }

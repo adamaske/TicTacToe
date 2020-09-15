@@ -8,6 +8,8 @@ Slot::SlotState PlayerState();
 
 void Execute();
 
+int AIMove();
+
 bool MoreEmptySpaces();
 
 bool Win();
