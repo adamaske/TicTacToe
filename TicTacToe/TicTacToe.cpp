@@ -61,7 +61,7 @@ void Setup()
     player1Turn = true;
     //Ask for 2 player or AI
     
-    bool askForAI;
+    bool askForAI = true;
     do {
         int aiOr2Player;
         std::cout << "2-PLayer or play versus AI?:" << std::endl << "1. 2-Player" << std::endl << "2. AI" << std::endl;
