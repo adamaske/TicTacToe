@@ -3,7 +3,10 @@
 #include "TicTacToe.h"
 class TTTAI
 {
-
+	//Basicly checks every possible future move result
+	//For each turn it checks, gives it a score from -1 to 1, tie = 0, o/AI win = 1, x/player win = -1
+	//Then goes through eaches avalibe turn, if the turn it checks is better than a previous, 
+	//overwrites it and stores what slot it checked, then return that slot at the end
 	
 public:
 	Slot _slots[9];
