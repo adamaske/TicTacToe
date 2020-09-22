@@ -149,10 +149,12 @@
   <ItemGroup>
     <ClCompile Include="Slot.cpp" />
     <ClCompile Include="TicTacToe.cpp" />
+    <ClCompile Include="TTTAI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Slot.h" />
     <ClInclude Include="TicTacToe.h" />
+    <ClInclude Include="TTTAI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

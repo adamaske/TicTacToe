@@ -21,12 +21,18 @@
     <ClCompile Include="Slot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TTTAI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Slot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TicTacToe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TTTAI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

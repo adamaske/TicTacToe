@@ -4,6 +4,7 @@
 #include "TicTacToe.h"
 #include <string>
 #include <vector>
+#include "TTTAI.h"
 
 bool playing;
 int height = 3;
@@ -175,20 +176,11 @@ void Execute()
 
 int AIMove() 
 {
-    //Only give vaild returns;
-    //Check for the middle slot, if its empty, then take it
-    if (slots[4].myState == Slot::SlotState::empty) {
-        return 4;
-    }
+    //Found algorithm online for tic-tac-toe called minimax, wich is implemented in the TTTAI.h file, 
+    //So the AI is basicly unbeatable as far as I Can tell
 
-    //Temperory, just take the first avalibe slot
-    for (int i = 0; i < 9; i++) {
-        if (slots[i].myState == Slot::SlotState::empty) {
-            std::cout << i;
-            return i;
-        }
-    }
-    return 1;
+    TTTAI ai;
+    return ai.aiMove(slots);
 }
 bool MoreEmptySpaces() {
     //If there is any spaces which are empty, return true

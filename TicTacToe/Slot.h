@@ -7,7 +7,7 @@ public:
 	//Enum for the different states the slot can be in
 	enum SlotState { empty, x, o };
 	//Variable for the state
-	SlotState myState;
+	SlotState myState = empty;
 	//Using a bool to get the input wich takes in a slotState and returns true if it is possible, false if it is locked
 	bool GetInput(SlotState newState) 
 	{
